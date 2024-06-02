@@ -1,0 +1,172 @@
+paths:
+  /carts/{cartId}:
+    get:
+      summary: Devuelve el carrito con el id recibido por params
+      parameters:
+        - name: cartId
+          in: path
+          required: true
+          description: Id carrito a buscar
+          schema:
+            type : string
+      tags:
+        - Carts
+      responses:
+        "201":
+          description: Peticion de carrito exitosa.
+        "400":
+          description: No se recupero carrito, ID incorrecto
+  /api/carts:
+    post:    
+      summary: Crea nuevo carrito y lo guarda en BD.
+      tags:
+        - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/createCart'
+      responses:
+        "200":
+          description: Creacion correcta de cart.
+        "400":
+          description: Error de creacion de carrito.
+
+      delete:
+        summary: Recibe id de carrito por params y el mismo es vaciado
+        parameters:
+        - name: cartId
+          in: path
+          required: true
+          description: Id carrito a buscar
+          schema:
+            type : string
+        tags:
+          - Carts
+        responses:
+          "201":
+            description: Se a vaciado su carrito.
+          "400":
+            description: Fallo al intentar vaciar su carrito
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Recibe el Id de carrito y el Id de producto el cual es guardo en el carrito recibido.
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      tags:
+          - Carts
+      responses:
+        "200":
+          description: Tu producto ha sido agregado con exito.
+        "400":
+          description: Error a cargar el producto, revisar los valores.
+    delete:
+      summary: Recibe por parametros el Id de carrito y el Id de producto. Elimina el mismo, del carrito recibido.
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      tags:
+          - Carts
+      responses:
+        "201":
+          description: Exito al eliminar producto en el carrito.
+        "400":
+          description: Error en el proceso de eliminacion
+        "500":
+          description: Error interno.
+    put:
+      summary: Recibe por parametros el Id de carrito y el Id de producto. Modifica el mismo, en el carrito recibido.
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      tags:
+          - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/putProductInCart'      
+      responses:
+        "201":
+          description: Exito al modificar producto en el carrito.
+        "400":
+          description: Error en el proceso de modificacion.
+        "500":
+          description: Error interno.
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Obtiene el ID de un carrito, por medio de parametros en URL, e inicia el proceso de finalizacion de compra 
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id carrito a buscar
+          schema:
+            type : string
+      tags:
+        - Carts
+      responses:
+        "201":
+          description: Se realizo su ticket con exito.
+        "400":
+          description: No hay productos en tu carrito
+        "500":
+          description:  No se pudo realizar su compra
+
+components:
+  schemas:   
+  requestBodies:
+    createCart:
+      type: object
+      properties:
+        title: string
+        description: Nombre de carrito
+      example: 
+        title: Nuevo carrito
+    putCart:
+      type: object
+      properties:
+        title: string
+        description: Modificacion de carrito
+      example:
+        title: MOD CARRITO DESDE SWAGGER
+    putProductInCart:
+      type: object
+      properties:
+        quantity: number
+        description: Cambia la cantidad de producto en carrito
+      example: 
+        quantity: 2

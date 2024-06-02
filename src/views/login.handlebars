@@ -1,0 +1,29 @@
+<h2>Login usuarios</h2>
+<div>
+ {{#if mensaje}}
+ <div style=" color:green">{{mensaje}}</div>
+{{/if}}
+
+ {{#if error}}
+ <div style=" color:red">{{this.error}}</div>
+{{/if}}
+<p>Ingresa con github <a href="/api/session/github">aqui</a></p>
+<form action="/api/session/login" method="post">
+
+<label for="">Email</label>
+<input type="email" name="email" placeholder="Email"><br>
+
+<label for="">Password</label>
+<input type="password" name="password" placeholder="password" ><br><br>
+
+<input type="submit" value="Ingresar">
+<p>Olvidaste tu contraseña? Ingresa <a href="/views/recupero">aqui</a>
+
+</p>
+</form>
+
+<p>Si no estas registrado registrate <a href="/views/registro">Aqui</a></p>
+
+
+</div>
+

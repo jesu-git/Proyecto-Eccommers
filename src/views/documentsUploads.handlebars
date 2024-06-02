@@ -1,0 +1,29 @@
+<h1>Actualizacion de perfil / suba de datos</h1>
+<div>
+ {{#if mensaje}}
+ <div style=" color:green">{{mensaje}}</div>
+{{/if}}
+
+ {{#if error}}
+ <div style=" color:red">{{this.error}}</div>
+{{/if}}
+ </div>
+<form action="/api/users/{{user}}/documents" method="post" enctype="multipart/form-data">
+
+    <label for="">Ingrese foto de perfil</label>
+    
+    <label for="">Tipo de archivo a subir:</label><br>
+    <select name="category" id="category">
+        <option value="profile">Foto de perfil</option>
+        <option value="products">Imagenes de productos</option>
+        <option value="identificacion">Documento(D.N.I)</option>
+        <option value="domicilio">Comprobante de domicilio</option>
+        <option value="cuenta">Comprobante de estado de cuenta</option>
+    </select><br><br>
+
+    <label for="">Ingrese archivo</label>
+    <input type="file" name="document" id="document"><br><br>
+
+    <input type="submit" value="Subir">
+
+</form>

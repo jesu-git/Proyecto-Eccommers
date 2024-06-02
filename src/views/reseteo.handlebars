@@ -1,0 +1,23 @@
+<h2>Contraseña nueva</h2>
+ 
+ {{#if mensaje}}
+ <div style=" color:green">{{mensaje}}</div>
+{{/if}}
+
+ {{#if error}}
+ <div style=" color:red">{{this.error}}</div>
+{{/if}}
+
+<form action="/views/update" method="post">
+
+<label for="">password nueva</label>
+<input type="password" name="password" id="password">
+
+<label for="">Repita password nueva</label>
+<input type="password" name="password2" id="password2">
+
+<input type="text" name="token" id="token" value={{tk}}>
+
+<input type="submit" value="Reset">
+
+</form>

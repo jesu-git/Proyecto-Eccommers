@@ -1,0 +1,11 @@
+
+
+export const errorCodes = {
+
+    NOT_FOUND: 404,
+    ERROR_DATA_INSERT:405,
+    ERROR_AUTH: 401,
+    ERROR_AUTHORIZATION: 403,
+    CONFLICT: 409,
+    BAD_REQUEST: 400
+}

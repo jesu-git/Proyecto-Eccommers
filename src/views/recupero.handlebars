@@ -1,0 +1,18 @@
+
+<h2>Restablecer contraseña</h2>
+{{#if error}}
+<div style=" color:red">{{error}}</div>
+{{/if}}
+
+{{#if mensaje}}
+<div style=" color:green">{{mensaje}}</div>
+{{/if}}
+<form action="/views/recuperoTk" method="post">
+
+
+<label for="">Ingrese su email</label>
+
+<input type="email" name="email" id="email"> 
+<input type="submit" value="Restablecer">               
+
+</form>

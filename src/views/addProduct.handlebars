@@ -1,0 +1,38 @@
+{{#if error}}
+<div style=" color:red">{{error}}</div>
+{{/if}}
+
+{{#if mensaje}}
+<div style=" color:green">{{mensaje}}</div>
+{{/if}}
+<h1>Agregar producto</h1>
+<form action="/api/products" method="post">
+
+    <label for="">Nombre:</label>
+    <input type="text" name="title" placeholder="Nombre"><br>
+
+    <label for="">Descripcion:</label>
+    <input type="text" name="description" placeholder="descripcion"><br>
+
+    <label for="">Code</label><br>
+    <input type="Number" name="code" id="" placeholder="code"><br><br>
+
+    <label for="">Precio:</label><br>
+    <input type="Number" name="price" placeholder="Precio"><br><br>
+
+
+    <label for="">Stock:</label><br>
+    <input type="Number" name="stock" placeholder="Stock"><br><br>
+
+    <label for="">Categoria:</label><br>
+        <select name="category" id="category">
+        <option value="fiambre">Fiambres</option>
+        <option value="panificado">Panificados</option>
+        <option value="pescado">Pescados</option>
+        <option value="vegetal">Vegetales</option>
+        <option value="bazar">Bazar</option>
+    </select><br><br>
+
+    <input type="submit" value="Crear">
+
+</form>

@@ -1,0 +1,262 @@
+paths:
+  /products:
+    get:
+      summary: Devuelve todos los productos de la base de datos, implementando paginación.
+      tags: 
+        - Products
+      responses:
+        "200":
+          description: Peticion de productos exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        "400":
+          description: Error al intentar recuperar productos de la DB.
+        "500":
+          description: Error interno del servidor,intente mas tarde.
+  /products?page:
+    get:
+      parameters:
+          - in: query
+            name: page
+            schema:
+              type: number
+            description: numero de pagina
+      summary: Devuelve los productos de una pagina especifica mediante el uso paginación.
+      tags: 
+        - Products
+      responses:
+        "200":
+          description: Peticion de productos exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        "400":
+          description: Error al intentar recuperar productos de la DB.
+        "500":
+          description: Error  interno del servidor, intente mas tarde
+  /products?limit:
+    get:
+      parameters:
+          - in: query
+            name: limit
+            schema:
+              type: number
+            description: numero limit de listado
+      summary: Devuelve una cantidad de productos limitada.
+      tags: 
+        - Products
+      responses:
+        "200":
+          description: Peticion de productos exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        "400":
+          description:  Error al intentar recuperar productos de la DB.
+        "500":
+          description: Error  interno del servidor, intente mas tarde
+  /products?sort:
+    get:
+      parameters:
+          - in: query
+            name: sort
+            schema:
+              type: string
+            description: Ordena los producto teniendo en cuenta el precio
+      summary: Devuelve todos los productos ordenados de menor a mayor o viceversa teniendo en cuenta el precio.
+      tags: 
+        - Products
+      responses:
+        "200":
+          description: Peticion de productos exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        "400":
+          description: Error al intentar recuperar productos de la DB.
+        "500":
+          description: Error  interno del servidor, intente mas tarde
+  /products?category:
+    get:
+      parameters:
+          - in: query
+            name: category
+            schema:
+              type: string
+            description: categoria
+      summary: Devuelve todos los productos filtrados por una categoria especifica.
+      tags: 
+        - Products
+      responses:
+        "200":
+          description: Peticion de productos exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        "404":
+          description: Error al intentar recuperar productos de la DB.
+        "500":
+          description: Error  interno del servidor, intente mas tarde
+  /products/{prodId}:
+    get:
+      summary: Devuelve un producto mediante un ID especifico.
+      tags:
+        - Products
+      parameters:
+        - name: prodId
+          in: path
+          required: true
+          description: ID de producto.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: devolucion de producto con id esspecifico exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        "400":
+          description: El id ingresado no se en encuentra en la BD.
+  /api/products:
+    post:
+      summary: Crea y guarda un nuevo producto en la base de datos.
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/createProduct'
+      responses:
+        "200":
+          description: El producto {nombre de producto} ha sido creado correctamente.
+        "400":
+          description: Error al crear el producto.
+
+  /api/products/{prodId}:
+    put:
+      summary: Modifica un producto existente mediante su ID.
+      tags:
+        - Products
+      parameters:
+        - name: prodId
+          in: path
+          required: true
+          description: ID del producto a modificar.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/putProduct'
+      responses:
+        "200":
+          description: Actualizado con exito.
+        "400":
+          description: No se ha podido actualizar el producto ,verifique el id o intente mas tarde.
+    delete:
+      summary: Eliminar un producto atraves de su ID.
+      tags:
+        - Products
+      parameters:
+        - name: prodId
+          in: path
+          required: true
+          description: ID del producto a eliminar.
+          schema:
+            type: string
+      responses:
+        "201":
+          description: El producto con id {id} ha sido eliminado.
+        "400":
+          description: Error al eliminar,verifique el id y vuelva a intentar.
+          
+
+components:
+  schemas:          
+    Products:
+      type: object
+      properties:
+        _id: 
+          type: string
+        title: 
+          type: string
+        description: 
+          type: string
+        code: 
+          type: string
+        price: 
+          type: number
+        status: 
+          type: boolean
+        stock: 
+          type: number
+        category: 
+          type: string
+        thumbnail: 
+          type: string
+        owner: 
+          type: string
+  requestBodies:
+    createProduct:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Nombre de product
+        description:
+          type: string
+          description: description de product
+        code:
+          type: string
+          description: Code de product
+        price:
+          type: number
+          description: Price de product
+        stock: 
+          type: number
+          description: Stock de product
+        category: 
+          type: string
+          description: Category de product
+      example:
+        title: Product de swagger
+        description: test swagger
+        code: codeUnico
+        price: 25
+        stock: 22
+        category: Test
+    putProduct:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Nombre de product
+        description:
+          type: string
+          description: description de product
+        code:
+          type: string
+          description: Code de product
+        price:
+          type: number
+          description: Price de product
+        stock: 
+          type: number
+          description: Stock de product
+        category: 
+          type: string
+          description: Category de product
+      example:
+        title: Mod swagger
+  

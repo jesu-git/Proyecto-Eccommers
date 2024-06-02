@@ -1,0 +1,42 @@
+<ul class="menu">
+    {{#if usuario}}
+    <li>
+        <a href="/views">Home</a>
+    </li>
+    <li>
+        <a href="/views/products">Products</a>
+    </li>
+        <li>
+        <a href="/views/userDocuments">Documentacion</a>
+    </li>
+    
+    <li>
+        <a href="/views/perfil">Perfil</a>
+    </li>
+    {{#if admin}}
+        <li>
+        <a href="/views/createProduct">Add product</a>
+    </li>
+    {{/if}}
+    {{#if acceso}}
+<li>
+
+    <a href="/views/chat">Chat</a>
+</li>
+    {{/if}}
+    <li>
+        <a href="/api/session/logout">Logout</a>
+    </li>
+
+    
+     {{else}}
+    <li>
+        <a href="/views/registro">Registro</a>
+    </li>
+
+
+    <li>
+        <a href="/views/login">Login</a>
+    </li>
+    {{/if}}
+</ul>
